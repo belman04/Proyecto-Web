@@ -209,16 +209,25 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <!-- aquí se llenará la tabla con los pedidos -->
+                    <!-- aquí se llenará la tabla con los pedidos -->
                   </tbody>
               </table>
           </div>
+          
+        <!-- Sección de productos disponibles -->
+        <div>
+            <h3>Agregar Platillos</h3>
+            
+            <div id="availableProductsContainer" class="products-container">
+                 <!-- Aquí se cargarán los productos disponibles -->
+            </div>
+        </div>
 
           <div class="order-summary-footer">
               <div class="order-total">
                   Total: $<span id="editTotalAmount">0.00</span>
               </div>
-              <button id="editOrderButton" onclick="editOrder()">Editar</button>
+              <button id="editOrderButton" onclick="updateOrder(event)">Guardar Cambios</button>
           </div>
       </div>
     </div>

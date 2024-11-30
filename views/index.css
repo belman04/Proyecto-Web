@@ -363,7 +363,7 @@ iframe {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     margin: 0 auto 20px;
     width: 90%;
 }
@@ -430,6 +430,7 @@ iframe {
 /* Títulos */
 h3 {
     margin-top: 15px;
+    margin-bottom: 15px;
     text-align: center;
     font-size: 18px;
     font-weight: bold;
