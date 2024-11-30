@@ -8,35 +8,39 @@ function closePopup() {
 }
 
 
-loginButton.addEventListener("click", function () {
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
+document.addEventListener("DOMContentLoaded", function () {
+    const loginButton = document.getElementById("loginButton");
+    loginButton.addEventListener("click", function () {
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
 
-    if (!email || !password) {
-        alert("Por favor, completa todos los campos.");
-        return; // Detén la ejecución si los campos están vacíos
-    }
-
-    fetch("https://proyecto-web-production-0a7f.up.railway.app/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }) // Enviar valores correctos
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert("Usuario autenticado correctamente.");
-            window.location.reload(); // Recargar la página actual
-        } else {
-            alert("Usuario o contraseña incorrectos.");
+        if (!email || !password) {
+            alert("Por favor, completa todos los campos.");
+            return;
         }
-    })
-    .catch(error => {
-        console.error("Error al autenticar:", error);
+
+        fetch("https://proyecto-web-production-0a7f.up.railway.app/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Usuario autenticado correctamente.");
+                window.location.reload();
+            } else {
+                alert("Usuario o contraseña incorrectos.");
+            }
+        })
+        .catch(error => {
+            console.error("Error al autenticar:", error);
+        });
     });
 });
+
 
 
 function openRegisterPopup() {
