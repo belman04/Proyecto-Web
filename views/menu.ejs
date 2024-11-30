@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+
+</head>
+<body>
+
+    <div id="loginPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <label for="email">Correo</label>
+                <input type="email" id="email" required>
+                
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" required>
+                
+                <button type="button" id="loginButton">Ingresar</button>
+                <a class="button is-primary" id="registerButton" onclick="openRegisterPopup()">Registrar</a>
+                <p id="errorMessage" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="registerPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closeRegisterPopup()">&times;</span>
+            <h2>Registro</h2>
+            <form id="registerForm" onsubmit="return validateRegisterForm()">
+                <label for="name">Nombre</label>
+                <input type="text" id="nameR" required>
+                
+                <label for="email">Correo</label>
+                <input type="email" id="emailR" required>
+                
+                <label for="phone">Teléfono</label>
+                <input type="number" id="phoneR" required>
+                
+                <label for="password">Contraseña</label>
+                <input type="password" id="passwordR" required>
+                
+                <button type="submit" id="registerButton">Registrar</button>
+                <p id="registerErrorMessage" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pop-up para realizar pedido -->
+    <div id="orderPopup" class="popup" style="display: none;">
+      <div class="popup-content" id="ordenar-content">
+        <span class="close" onclick="closeOrderPopup()">&times;</span>
+        <h2>Haz tu pedido</h2>
+        
+        <!-- Lista de productos -->
+        <div id="productsContainer" class="products-container">
+          <!-- Aquí se cargarán los platillos dinámicamente -->
+        </div>
+        <!-- Tabla de resumen del pedido -->
+        <div>
+          <h3>Resumen del pedido:</h3>
+          <table id="orderSummary">
+            <thead>
+              <tr>
+                <th>Platillo</th>
+                <th>Precio Unitario</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Aquí se llenará la tabla con los pedidos -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="order-summary-footer">
+          <div class="order-total">
+              Total: $<span id="totalAmount">0.00</span>
+          </div>
+          <button id="sendOrderButton" onclick="sendOrder()">Enviar Pedido</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="header">
+        <img src="/img/logo1.png" alt="Logo" class="logo" width="120">
+    </div>
+    
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="index.ejs">
+                <h2>Belman's</h2>
+            </a>
+    
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+    
+        <div id="navbarBasicExample" class="navbar-menu">
+            <!-- Elementos alineados a la izquierda -->
+            <div class="navbar-start">
+                <a class="navbar-item" href="/">Inicio</a>
+                <a class="navbar-item" href="/menu">Menú</a>
+                <a class="navbar-item" href="/reserv">Reservar</a>
+                 <!-- Mostrar pedidos si esta login el usuaario -->
+                <% if (user) { %>
+                    <a class="navbar-item" href="/pedidos">Mis Pedidos</a>
+                <% } %>
+                <a class="navbar-item" href="/contact">Contacto</a>
+            </div>
+    
+            <!-- Elementos alineados a la derecha -->
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <!-- Mostrar el nombre del usuario si está autenticado -->
+                        <% if (user) { %>
+                            <span>Bienvenido, <%= user.nombre %></span>
+                            <a class="button is-light" href="/logout">Cerrar sesión</a>
+                        <% } else { %>
+                            <a class="button is-primary" onclick="openRegisterPopup()">Registrar</a>
+                            <a class="button is-light" onclick="openPopup()">Iniciar Sesión</a>
+                        <% } %>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Menú</h1>
+        
+        <!-- Primera fila de tarjetas -->
+        <div class="columns">
+          <!-- Primer platillo -->
+          <div class="column is-one-third">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="img/plat1.jpeg" alt="Platillo 1" />
+                  <!-- <a class="button order-button" onclick="openPopup()">Ordenar</a> -->
+                  <!-- Mostrar el nombre del usuario si está autenticado -->
+                  <% if (user) { %>
+                  <!-- <a class="button order-button" href="/pedidos">Ordenar</a> -->
+                  <a class="button order-button" onclick="openOrderPopup()">Ordenar</a>
+                  <% } else { %>
+                  <a class="button order-button" onclick="openPopup()">Ordenar</a>
+                  <% } %>   
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-4">Tacos de Pescado a la Baja</p>
+                    <p class="subtitle is-6">Tacos de pescado empanizado con col y salsa de chipotle.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <!-- Segundo platillo -->
+          <div class="column is-one-third">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="img/plat2.jpg" alt="Platillo 2" />
+                  <!-- Mostrar el nombre del usuario si está autenticado -->
+                  <% if (user) { %>
+                  <a class="button order-button" onclick="openOrderPopup()">Ordenar</a>
+                  <% } else { %>
+                  <a class="button order-button" onclick="openPopup()">Ordenar</a>
+                  <% } %> 
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-4">Enchiladas Suizas</p>
+                    <p class="subtitle is-6">Enchiladas de pollo en salsa verde, gratinadas con queso.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <!-- Tercer platillo -->
+          <div class="column is-one-third">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="img/plat3.jpg" alt="Platillo 3" />
+                  <!-- Mostrar el nombre del usuario si está autenticado -->
+                  <% if (user) { %>
+                  <a class="button order-button" onclick="openOrderPopup()">Ordenar</a>
+                  <% } else { %>
+                  <a class="button order-button" onclick="openPopup()">Ordenar</a>
+                  <% } %> 
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-4">Mole Poblano</p>
+                    <p class="subtitle is-6">Pechuga de pollo en salsa de mole, servida con arroz.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- Fin de primera fila -->
+    
+        <!-- Segunda fila de tarjetas -->
+        <div class="columns">
+          <!-- Cuarto platillo -->
+          <div class="column is-one-third">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="img/plat4.jpg" alt="Platillo 4" />
+                  <!-- Mostrar el nombre del usuario si está autenticado -->
+                  <% if (user) { %>
+                  <a class="button order-button" onclick="openOrderPopup()">Ordenar</a>
+                  <% } else { %>
+                  <a class="button order-button" onclick="openPopup()">Ordenar</a>
+                  <% } %>                 
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-4">Chiles en Nogada</p>
+                    <p class="subtitle is-6">Pimientos rellenos de carne, cubiertos con salsa de nuez.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <!-- Quinto platillo -->
+          <div class="column is-one-third">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="img/plat5.jpg" alt="Platillo 5" />
+                  <!-- Mostrar el nombre del usuario si está autenticado -->
+                  <% if (user) { %>
+                  <a class="button order-button" onclick="openOrderPopup()">Ordenar</a>
+                  <% } else { %>
+                  <a class="button order-button" onclick="openPopup()">Ordenar</a>
+                  <% } %> 
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-4">Filete de Res con Vino Tinto</p>
+                    <p class="subtitle is-6">Filete de res en salsa de vino, acompañado de papas.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <!-- Sexto platillo -->
+          <div class="column is-one-third">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="img/plat6.jpg" alt="Platillo 6" />
+                  <!-- Mostrar el nombre del usuario si está autenticado -->
+                  <% if (user) { %>
+                  <a class="button order-button" onclick="openOrderPopup()">Ordenar</a>
+                  <% } else { %>
+                  <a class="button order-button" onclick="openPopup()">Ordenar</a>
+                  <% } %> 
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-4">Ceviche de Camarón</p>
+                    <p class="subtitle is-6">Ceviche de camarón con jitomate, cebolla y limón.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- Fin de segunda fila -->
+      </div>
+    </section>
+    
+    
+    <footer class="footer">
+        <div>
+            <p>Todos los derechos reservados &copy; 2024 Belman</p>
+        </div>
+    </footer>
+    
+    <script src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>
