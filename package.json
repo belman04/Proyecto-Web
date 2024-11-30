@@ -8,12 +8,12 @@
     "mysql2": "^3.11.4"
   },
   "scripts": {
-    "start": "node views/index.js",
-    "dev": "nodemon views/index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "name": "proyecto",
   "version": "1.0.0",
-  "main": "views/index.js",
+  "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
