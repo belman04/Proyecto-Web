@@ -4,6 +4,8 @@ const path = require('path'); // importa el módulo path para manejar rutas de a
 const session = require('express-session'); // importa el módulo express-session para gestionar sesiones
 const app = express(); // crea una nueva aplicación express
 
+mysql://root:aCGUwsecPYJKEBStaXTYeoClxZSGONeu@autorack.proxy.rlwy.net:26029/railway
+
 // middleware para manejar los datos de formularios
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
