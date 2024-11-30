@@ -22,12 +22,15 @@ app.set('view engine', 'ejs');
 // configurar Express para servir archivos estáticos desde 'views'
 app.use(express.static(path.join(__dirname, 'views')));  // Servir archivos estáticos desde 'views'
 
+const { PORT, DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT } = require('./config'); // Importar configuraciones
+
 // configuración de la conexión a la base de datos
 let conexion = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "1234",
-  database: "restaurante"
+  host: DB_HOST,
+  user: DB_USER,
+  password: DB_PASSWORD,
+  database: DB_NAME,
+  port: DB_PORT
 });
 
 // conexión a la base de datos
@@ -344,11 +347,6 @@ app.post('/cancelar-pedido', (req, res) => {
 });
 
 
-// iniciar el servidor
-app.listen(3000, () => {
-  console.log("Servidor creado http://localhost:3000");
-});
-
 
 // ruta para obtener un pedido específico
 app.get('/orders/:id', (req, res) => {
@@ -456,4 +454,15 @@ app.put('/orders/:id', (req, res) => {
             });
         });
     });
+});
+
+
+// iniciar el servidor
+
+// app.listen(3000, () => {
+//     console.log("Servidor creado http://localhost:3000");
+//   });
+
+app.listen(PORT, () => {
+  console.log(`Servidor creado en http://localhost:${PORT}`);
 });
