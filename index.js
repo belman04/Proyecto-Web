@@ -7,6 +7,8 @@ function closePopup() {
     document.getElementById("loginPopup").style.display = "none";  // Oculta el popup
 }
 
+const loginButton = document.getElementById("loginButton");
+
 
 loginButton.addEventListener("click", function () {
     const email = document.getElementById("email").value.trim();
