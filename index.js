@@ -7,8 +7,6 @@ function closePopup() {
     document.getElementById("loginPopup").style.display = "none";  // Oculta el popup
 }
 
-const loginButton = document.getElementById("loginButton");
-
 
 loginButton.addEventListener("click", function () {
     const email = document.getElementById("email").value.trim();
@@ -19,7 +17,7 @@ loginButton.addEventListener("click", function () {
         return; // Detén la ejecución si los campos están vacíos
     }
 
-    fetch("http://localhost:3000/login", {
+    fetch("https://proyecto-web-production-0a7f.up.railway.app/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -60,7 +58,7 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
     const passwordR = document.getElementById("passwordR").value;
 
     // Realizar la solicitud POST al servidor
-    fetch("http://localhost:3000/register", {
+    fetch("https://proyecto-web-production-0a7f.up.railway.app/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -99,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Cargar productos desde el servidor
     function loadProducts() {
-        fetch("http://localhost:3000/products")
+        fetch("https://proyecto-web-production-0a7f.up.railway.app/products")
             .then(response => response.json())
             .then(products => {
                 const productsContainer = document.getElementById("productsContainer");
@@ -176,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch("http://localhost:3000/orders", {
+        fetch("https://proyecto-web-production-0a7f.up.railway.app/orders", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -221,7 +219,7 @@ function closeEditOrderPopup() {
 
 // Función para cargar la orden a editar
 function loadOrder(orderId) {
-    fetch(`http://localhost:3000/orders/${orderId}`)
+    fetch(`https://proyecto-web-production-0a7f.up.railway.app/orders/${orderId}`)
         .then(response => response.json())
         .then(order => {
             if (order.success === false) {
@@ -321,7 +319,7 @@ window.updateOrder = function(event) {
     };    
 
     console.log("ID del pedido:", currentOrderId);
-    fetch(`http://localhost:3000/orders/${currentOrderId}`, {
+    fetch(`https://proyecto-web-production-0a7f.up.railway.app/orders/${currentOrderId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedOrderData)
@@ -339,7 +337,7 @@ window.updateOrder = function(event) {
 
 // Cargar productos disponibles
 function loadProducts() {
-    fetch("http://localhost:3000/products")
+    fetch("https://proyecto-web-production-0a7f.up.railway.app/products")
         .then(response => response.json())
         .then(products => {
             const productsContainer = document.getElementById("availableProductsContainer");
