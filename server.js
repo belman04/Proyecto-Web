@@ -1,5 +1,5 @@
 const express = require("express"); // importa el módulo express para crear la aplicación
-const mysql = require("mysql"); // importa el módulo mysql para la conexión a la base de datos
+const mysql = require("mysql2"); // importa el módulo mysql para la conexión a la base de datos
 const path = require('path'); // importa el módulo path para manejar rutas de archivos
 const session = require('express-session'); // importa el módulo express-session para gestionar sesiones
 const app = express(); // crea una nueva aplicación express
