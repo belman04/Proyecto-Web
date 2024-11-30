@@ -1,11 +1,11 @@
 {
   "dependencies": {
     "body-parser": "^1.20.3",
+    "connect-redis": "^8.0.0",
     "ejs": "^3.1.10",
     "express": "^4.21.1",
     "express-session": "^1.18.1",
-    "mysql": "^2.18.1",
-    "mysql2": "^3.11.4"
+    "mysql": "^2.18.1"
   },
   "scripts": {
     "start": "node server.js",
@@ -17,8 +17,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "nodemon": "^3.1.7"
-  }
+  "description": ""
 }
