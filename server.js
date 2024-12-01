@@ -132,6 +132,7 @@ app.get('/products', (req, res) => {
                 message: 'Error al cargar los productos' 
             });
         }
+        console.log(results); // Verificar los resultados de la consulta
         res.json(results);
     });
 });
