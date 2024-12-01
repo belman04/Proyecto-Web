@@ -111,11 +111,13 @@ app.get('/logout', (req, res) => {
     });
 });
 
+app.use('/img', express.static(path.join(__dirname, 'views', 'img')));
+
 // ruta para obtener productos
 app.get('/products', (req, res) => {
     const query = `
         SELECT id_producto, nombre, precio, 
-               CONCAT('https://github.com/belman04/Proyecto-Web/blob/main/views/img/', img) AS img 
+               CONCAT('https://proyecto-web-production-0a7f.up.railway.app/img/', img) AS img 
         FROM productos
     `;
     
