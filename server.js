@@ -116,7 +116,7 @@ app.use('views/img', express.static(path.join(__dirname, 'img')));
 // ruta para obtener productos
 app.get('/products', (req, res) => {
     const query = `
-        SELECT id_producto, nombre, precio, img 
+        SELECT id_producto, nombre, precio, img    
         FROM productos
     `;
 
