@@ -58,7 +58,7 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
     const passwordR = document.getElementById("passwordR").value;
 
     // Realizar la solicitud POST al servidor
-    fetch("proyecto-web-production-0a7f.up.railway.app/register", {
+    fetch("https://proyecto-web-production-0a7f.up.railway.app/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
