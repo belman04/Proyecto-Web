@@ -111,7 +111,8 @@ app.get('/logout', (req, res) => {
     });
 });
 
-app.use('views/img', express.static(path.join(__dirname, 'img')));
+// Servir archivos estáticos desde la carpeta "views/img"
+app.use('/img', express.static(path.join(__dirname, 'views', 'img')));
 
 // ruta para obtener productos
 app.get('/products', (req, res) => {
@@ -129,14 +130,14 @@ app.get('/products', (req, res) => {
             });
         }
 
+        // Generar las URLs de las imágenes
         results = results.map(product => ({
             ...product,
-            img: `/img/plat${product.id_producto}.jpg`  
+            img: `/img/plat${product.id_producto}.jpeg`  // Ajusta la ruta de la imagen con el id_producto
         }));
 
         res.json(results);
     });
-
 });
 
 // ruta para procesar un nuevo pedido

@@ -102,6 +102,10 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => console.error("Error al cargar productos:", error));
     }
+
+    // Cargar productos al abrir el pop-up
+    loadProducts();
+    
     // Añadir producto al pedido
     function addToOrder(product) {
         const existingProduct = order.find(item => item.id === product.id_producto);
@@ -167,9 +171,8 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => console.error("Error al enviar pedido:", error));
     };
-    // Cargar productos al abrir el pop-up
-    loadProducts();
 });
+
 //editar pedido
 let currentOrder = [];  // Mantener este array global
 let currentOrderId = null;
