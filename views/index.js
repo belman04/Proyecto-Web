@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch("https://proyecto-web-production-0a7f.up.railway.app/products")
             .then(response => response.json())
             .then(products => {
-                const productsContainer = document.getElementById("productsContainer");
+                const productsContainer = document.getElementById("availableProductsContainer");
                 productsContainer.innerHTML = ""; // Limpiar contenedor
                 products.forEach(product => {
                     const productElement = document.createElement("div");
