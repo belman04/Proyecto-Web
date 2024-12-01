@@ -470,10 +470,6 @@ app.put('/orders/:id', (req, res) => {
 
 // iniciar el servidor
 
-// app.listen(3000, () => {
-//     console.log("Servidor creado http://localhost:3000");
-//   });
-
 app.listen(PORT, () => {
   console.log(`Servidor creado en http://localhost:${PORT}`);
 });
