@@ -149,26 +149,27 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateOrderSummary() {
         orderSummary.innerHTML = ""; // Limpiar tabla
         let total = 0;
-
+    
         order.forEach(item => {
-            const price = parseFloat(item.price); // Convertir precio a número
-            const quantity = item.quantity || 1; // Asegurar cantidad válida
-            const subtotal = (isNaN(price) ? 0 : price) * quantity;
-            total += subtotal;
+            const price = parseFloat(item.price) || 0; // Convertir precio a número, predeterminado 0
+            const quantity = parseInt(item.quantity, 10) || 1; // Convertir cantidad a entero, predeterminado 1
+            const subtotal = price * quantity; // Calcular subtotal
+            total += subtotal; // Sumar al total
     
             const row = document.createElement("tr");
             row.innerHTML = `
                 <td>${item.name}</td>
-                <td>$${isNaN(price) ? 'N/A' : price.toFixed(2)}</td>
+                <td>$${price.toFixed(2)}</td>
                 <td>${quantity}</td>
                 <td>$${subtotal.toFixed(2)}</td>
                 <td><button onclick="removeFromOrder(${item.id})">Eliminar</button></td>
             `;
-            orderSummary.appendChild(row);
+            orderSummary.appendChild(row); // Agregar fila a la tabla
         });
     
         totalAmount.textContent = total.toFixed(2); // Mostrar el total con 2 decimales
     }
+    
 
     // Eliminar producto del pedido
     window.removeFromOrder = function (productId) {
@@ -256,16 +257,20 @@ function updateEditOrderSummary() {
     let total = 0;
 
     currentOrder.forEach(item => {
-        const subtotal = item.price * item.quantity;
+        // Validar precio y cantidad
+        const price = parseFloat(item.price) || 0;  // Si item.price no es un número válido, asigna 0
+        const quantity = parseInt(item.quantity, 10) || 1;  // Si item.quantity no es válido, asigna 1
+        
+        const subtotal = price * quantity;
         total += subtotal;
 
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${item.name}</td>
-            <td>$${item.price.toFixed(2)}</td>
+            <td>$${price.toFixed(2)}</td>
             <td>
                 <button onclick="decreaseQuantity(${item.id})">-</button>
-                ${item.quantity}
+                ${quantity}
                 <button onclick="increaseQuantity(${item.id})">+</button>
             </td>
             <td>$${subtotal.toFixed(2)}</td>
@@ -277,6 +282,7 @@ function updateEditOrderSummary() {
     const totalAmount = document.getElementById("editTotalAmount");
     totalAmount.textContent = total.toFixed(2);
 }
+
 
 // Incrementar cantidad
 window.increaseQuantity = function(productId) {
