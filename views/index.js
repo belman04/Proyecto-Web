@@ -119,27 +119,36 @@ document.addEventListener("DOMContentLoaded", function () {
                 quantity: 1
             });
         }
+        order.push(product);
         updateOrderSummary();
     }
     // Actualizar tabla de resumen del pedido
     function updateOrderSummary() {
-        orderSummary.innerHTML = ""; // Limpiar tabla
+        const orderSummary = document.getElementById("orderSummary").querySelector("tbody");
+        const totalAmount = document.getElementById("totalAmount");
+      
+        orderSummary.innerHTML = ""; // Limpiar la tabla
+      
         let total = 0;
-        order.forEach(item => {
-            const subtotal = item.price * item.quantity;
-            total += subtotal;
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${item.name}</td>
-                <td>$${item.price.toFixed(2)}</td>
-                <td>${item.quantity}</td>
-                <td>$${subtotal.toFixed(2)}</td>
-                <td><button onclick="removeFromOrder(${item.id})">Eliminar</button></td>
-            `;
-            orderSummary.appendChild(row);
+        order.forEach((item, index) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${item.nombre}</td>
+            <td>$${item.precio.toFixed(2)}</td>
+            <td>1</td>
+            <td>$${item.precio.toFixed(2)}</td>
+            <td>
+              <button onclick="removeFromOrder(${index})">Eliminar</button>
+            </td>
+          `;
+          orderSummary.appendChild(row);
+      
+          total += item.precio;
         });
+      
         totalAmount.textContent = total.toFixed(2);
-    }
+      }
+      
     // Eliminar producto del pedido
     window.removeFromOrder = function (productId) {
         order = order.filter(item => item.id !== productId);

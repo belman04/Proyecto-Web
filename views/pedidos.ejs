@@ -157,11 +157,27 @@
         <span class="close" onclick="closeOrderPopup()">&times;</span>
         <h2>Haz tu pedido</h2>
         
-        <div class="product-item">
-            <img src="/img/plat1.jpg" alt="Platillo 1" />
-            <p>Platillo 1</p>
-            <p>$120.00</p>
-        </div>
+        <div id="productsContainer" class="products-container">
+            <div class="product-item" onclick="addToOrder({
+              id: 1,
+              nombre: 'Tacos de Pescado',
+              precio: 120.00
+            })">
+              <img src="/img/plat1.jpg" alt="Tacos de Pescado" />
+              <p>Tacos de Pescado</p>
+              <p>$120.00</p>
+            </div>
+            <div class="product-item" onclick="addToOrder({
+              id: 2,
+              nombre: 'Enchiladas Suizas',
+              precio: 150.00
+            })">
+              <img src="/img/plat2.jpg" alt="Enchiladas Suizas" />
+              <p>Enchiladas Suizas</p>
+              <p>$150.00</p>
+            </div>
+            <!-- Agrega más productos aquí -->
+          </div>
 
         <!-- lista de productos -->
         <div id="productsContainer" class="products-container">
