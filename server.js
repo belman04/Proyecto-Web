@@ -111,14 +111,19 @@ app.get('/logout', (req, res) => {
     });
 });
 
-app.use('/img', express.static(path.join(__dirname, 'views', 'img')));
+app.use('views/img', express.static(path.join(__dirname, 'img')));
 
 // ruta para obtener productos
 app.get('/products', (req, res) => {
+    // const query = `
+    //     SELECT id_producto, nombre, precio, 
+    //            CONCAT('http://localhost:300/img', img) AS img 
+    //     FROM productos
+    // `;
+
     const query = `
-        SELECT id_producto, nombre, precio, 
-               CONCAT('https://proyecto-web-production-0a7f.up.railway.app/img/', img) AS img 
-        FROM productos
+    SELECT id_producto, nombre, precio, img 
+    FROM productos
     `;
     
     conexion.query(query, (err, results) => {
