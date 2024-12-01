@@ -345,10 +345,14 @@ function loadProducts() {
             products.forEach(product => {
                 const productElement = document.createElement("div");
                 productElement.className = "product-item";
+                
+                // Asegurarse de que product.precio sea un número
+                const precio = parseFloat(product.precio);
+                
                 productElement.innerHTML = `
                     <img src="${product.img}" alt="${product.nombre}" />
                     <p>${product.nombre}</p>
-                    <p>$${product.precio.toFixed(2)}</p>
+                    <p>$${isNaN(precio) ? 'N/A' : precio.toFixed(2)}</p>
                 `;
 
                 productElement.addEventListener("click", () => {

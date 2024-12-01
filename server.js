@@ -125,12 +125,8 @@ app.get('/products', (req, res) => {
     // `;
     
     conexion.query(query, (err, results) => {
-        if (err) {
-            console.error('Error al obtener productos:', err);
-            return res.status(500).json({ 
-                success: false, 
-                message: 'Error al cargar los productos' 
-            });
+        if (error) {
+            return res.status(500).json({ error: "Error al obtener productos" });
         }
         res.json(results);
     });
