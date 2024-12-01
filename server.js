@@ -111,15 +111,18 @@ app.get('/logout', (req, res) => {
     });
 });
 
-// Servir archivos estáticos desde la carpeta "views/img"
-app.use('/img', express.static(path.join(__dirname, 'views', 'img')));
-
 // ruta para obtener productos
 app.get('/products', (req, res) => {
     const query = `
-        SELECT id_producto, nombre, precio
+        SELECT id_producto, nombre, precio, img
         FROM productos
     `;
+
+    // const query = `
+    //     SELECT id_producto, nombre, precio, 
+    //            CONCAT('http://localhost:3000/img/', img) AS img 
+    //     FROM productos
+    // `;
     
     conexion.query(query, (err, results) => {
         if (err) {
@@ -129,13 +132,6 @@ app.get('/products', (req, res) => {
                 message: 'Error al cargar los productos' 
             });
         }
-
-        // Generar las URLs de las imágenes
-        results = results.map(product => ({
-            ...product,
-            img: `/img/plat${product.id_producto}.jpg`  // Ajusta la ruta de la imagen con el id_producto
-        }));
-
         res.json(results);
     });
 });
@@ -467,9 +463,7 @@ app.put('/orders/:id', (req, res) => {
     });
 });
 
-
 // iniciar el servidor
-
 app.listen(PORT, () => {
   console.log(`Servidor creado en http://localhost:${PORT}`);
 });
