@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const orderSummary = document.getElementById("orderSummary").querySelector("tbody");
     const totalAmount = document.getElementById("totalAmount");
     let order = []; // Lista de productos seleccionados
+    
     // Cargar productos desde el servidor
     function loadProducts() {
         fetch("https://proyecto-web-production-0a7f.up.railway.app/products")

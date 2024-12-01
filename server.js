@@ -116,14 +116,9 @@ app.use('views/img', express.static(path.join(__dirname, 'img')));
 // ruta para obtener productos
 app.get('/products', (req, res) => {
     const query = `
-        SELECT id_producto, nombre, precio, img    
+        SELECT id_producto, nombre, precio
         FROM productos
     `;
-
-    // const query = `
-    // SELECT id_producto, nombre, precio, img 
-    // FROM productos
-    // `;
     
     conexion.query(query, (err, results) => {
         if (err) {
@@ -133,8 +128,15 @@ app.get('/products', (req, res) => {
                 message: 'Error al cargar los productos' 
             });
         }
+
+        results = results.map(product => ({
+            ...product,
+            img: `/img/plat${product.id_producto}.jpg`  
+        }));
+
         res.json(results);
     });
+
 });
 
 // ruta para procesar un nuevo pedido
