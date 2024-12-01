@@ -133,7 +133,7 @@ app.get('/products', (req, res) => {
         // Generar las URLs de las imágenes
         results = results.map(product => ({
             ...product,
-            img: `/img/plat${product.id_producto}.jpeg`  // Ajusta la ruta de la imagen con el id_producto
+            img: `/img/plat${product.id_producto}.jpg`  // Ajusta la ruta de la imagen con el id_producto
         }));
 
         res.json(results);
