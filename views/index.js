@@ -129,17 +129,20 @@ document.addEventListener("DOMContentLoaded", function () {
     // Añadir producto al pedido
     function addToOrder(product) {
         const existingProduct = order.find(item => item.id === product.id_producto);
+        
         if (existingProduct) {
             existingProduct.quantity++;
         } else {
+            const price = parseFloat(product.precio); // Convertir a número
             order.push({
                 id: product.id_producto,
                 name: product.nombre,
-                price: product.precio,
+                price: isNaN(price) ? 0 : price, // Manejar valores inválidos
                 quantity: 1
             });
         }
-        updateOrderSummary();
+    
+        updateOrderSummary(); // Actualizar resumen del pedido
     }
 
     // Actualizar tabla de resumen del pedido
@@ -148,21 +151,23 @@ document.addEventListener("DOMContentLoaded", function () {
         let total = 0;
 
         order.forEach(item => {
-            const subtotal = item.price * item.quantity;
+            const price = parseFloat(item.price); // Convertir precio a número
+            const quantity = item.quantity || 1; // Asegurar cantidad válida
+            const subtotal = (isNaN(price) ? 0 : price) * quantity;
             total += subtotal;
-
+    
             const row = document.createElement("tr");
             row.innerHTML = `
                 <td>${item.name}</td>
-                <td>$${item.price.toFixed(2)}</td>
-                <td>${item.quantity}</td>
+                <td>$${isNaN(price) ? 'N/A' : price.toFixed(2)}</td>
+                <td>${quantity}</td>
                 <td>$${subtotal.toFixed(2)}</td>
                 <td><button onclick="removeFromOrder(${item.id})">Eliminar</button></td>
             `;
             orderSummary.appendChild(row);
         });
-
-        totalAmount.textContent = total.toFixed(2);
+    
+        totalAmount.textContent = total.toFixed(2); // Mostrar el total con 2 decimales
     }
 
     // Eliminar producto del pedido
