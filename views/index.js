@@ -17,7 +17,7 @@ loginButton.addEventListener("click", function () {
         return; // Detén la ejecución si los campos están vacíos
     }
 
-    fetch("proyecto-web-production-0a7f.up.railway.app/login", {
+    fetch("https://proyecto-web-production-0a7f.up.railway.app/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Cargar productos desde el servidor
     function loadProducts() {
-        fetch("proyecto-web-production-0a7f.up.railway.app/products")
+        fetch("https://proyecto-web-production-0a7f.up.railway.app/products")
             .then(response => response.json())
             .then(products => {
                 const productsContainer = document.getElementById("productsContainer");
@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch("proyecto-web-production-0a7f.up.railway.app/orders", {
+        fetch("https://proyecto-web-production-0a7f.up.railway.app/orders", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -200,7 +200,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
 //editar pedido
 let currentOrder = [];  // Mantener este array global
 let currentOrderId = null;
@@ -219,7 +218,7 @@ function closeEditOrderPopup() {
 
 // Función para cargar la orden a editar
 function loadOrder(orderId) {
-    fetch(`proyecto-web-production-0a7f.up.railway.app/orders/${orderId}`)
+    fetch(`https://proyecto-web-production-0a7f.up.railway.app/orders/${orderId}`)
         .then(response => response.json())
         .then(order => {
             if (order.success === false) {
@@ -319,7 +318,7 @@ window.updateOrder = function(event) {
     };    
 
     console.log("ID del pedido:", currentOrderId);
-    fetch(`proyecto-web-production-0a7f.up.railway.app/orders/${currentOrderId}`, {
+    fetch(`https://proyecto-web-production-0a7f.up.railway.app/orders/${currentOrderId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedOrderData)
@@ -337,7 +336,7 @@ window.updateOrder = function(event) {
 
 // Cargar productos disponibles
 function loadProducts() {
-    fetch("proyecto-web-production-0a7f.up.railway.app/products")
+    fetch("https://proyecto-web-production-0a7f.up.railway.app/products")
         .then(response => response.json())
         .then(products => {
             const productsContainer = document.getElementById("availableProductsContainer");
