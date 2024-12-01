@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Cargar productos desde el servidor
     function loadProducts() {
-        fetch("https://proyecto-web-production-0a7f.up.railway.app//products")
+        fetch("https://proyecto-web-production-0a7f.up.railway.app/products")
             .then(response => response.json())
             .then(products => {
                 const productsContainer = document.getElementById("productsContainer");
