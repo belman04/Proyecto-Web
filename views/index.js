@@ -324,12 +324,15 @@ window.updateOrder = function(event) {
         return;
     }
 
+    const totalOrder = currentOrder.reduce((total, product) => total + (product.price * product.quantity), 0);
+
     const updatedOrderData = {
         cart: currentOrder.map(product => ({
             id: product.id,           // ID del producto
             quantity: product.quantity, // Cantidad del producto
             price: product.price       // Precio del producto
-        }))
+        })),
+        total: totalOrder // Añadir el total de la orden
     };    
 
     console.log("ID del pedido:", currentOrderId);
